@@ -1,5 +1,5 @@
 #!/bin/bash
-function timelapse() { 
+function timelapse() {
     framerate="$1"
     filename="$2"
     resolution_width="$3"
@@ -66,7 +66,7 @@ function fisheye_video(){
 		0*)
 			echo ">> HERO3"
 			echo -ne "Resolution:
-				-[0] 4:3 Wide FOV 
+				-[0] 4:3 Wide FOV
 				-[1] 4:3 Medium FOV
 				-[2] 4:3 Narrow FOV
 				-[3] 16:9 Wide FOV
@@ -162,7 +162,7 @@ function fisheye_video(){
 				diag=70.8;;
 			esac;;
 	esac
-			
+
 	flength=`echo "$vfov/$hfov*$diag" | bc -l | head -n1 | cut -d "." -f1`
 	if [[ $1 = "" ]]; then
 		for video in *.MP4;
@@ -205,8 +205,8 @@ function trim(){
 }
 
 function merge(){
-	for i in *.MP4; do 
-		echo "file '$i'" >> temp.txt; 
+	for i in *.MP4; do
+		echo "file '$i'" >> temp.txt;
 	done
 	ffmpeg -f concat -safe 0 -i temp.txt -c copy $1
 }
@@ -245,7 +245,7 @@ function wifiinfo(){
 	echo "EVssidprimary,$wifissid" >> gpauto
 	echo "EVpassphrase,$wifipassword" >> gpauto
 	echo "Done. Insert SD card into the camera, remove battery, insert battery and power on twice."
-	
+
 }
 
 function update(){
@@ -264,7 +264,7 @@ function proxy(){
 		for i in lowres/*.LRV;
 			do name=`echo $i | cut -d'.' -f1`;
 			mv $i $name.MP4;
-		done		
+		done
 	fi
 	if [[ $1 = "move" ]]; then
 		mv highres/*.MP4 lowres/
@@ -273,9 +273,9 @@ function proxy(){
 
 function help() {
     echo 'GoPro Tool for Linux OS
-Available commands: 
-- gopro timelapse [fps] [outfilename] [res width] [res height] 
-	>>Makes a timelapse with pictures in the current folder, make sure to cd to a DCIM/XXXGOPRO folder! 
+Available commands:
+- gopro timelapse [fps] [outfilename] [res width] [res height]
+	>>Makes a timelapse with pictures in the current folder, make sure to cd to a DCIM/XXXGOPRO folder!
 	>>Example: gopro timelapse 30 goproTL.mp4 1920 1080
 
 - gopro superview
@@ -314,7 +314,7 @@ Available commands:
 	>>Example: gopro gif 800x600 animation.gif
 
 - gopro proxy [option]
-	>>[rename] = renames .LRV to lowres/*.MP4 
+	>>[rename] = renames .LRV to lowres/*.MP4
 	>>[move] = when finish editing, moves highres/*.MP4 to lowres/
 
 - gopro update
