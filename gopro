@@ -205,10 +205,17 @@ function trim(){
 }
 
 function merge(){
-	for i in *.MP4; do
-		echo "file '$i'" >> temp.txt;
-	done
-	ffmpeg -f concat -safe 0 -i temp.txt -c copy $1
+    local temp, temp2, i
+
+    temp="$( mktemp --suffix=.txt )"
+
+    for i in *.MP4; do
+        echo "file '$i'" >> "${temp}"
+    done
+    temp2="$( mktemp --suffix=-merge.txt )"
+    sort < "${temp}" >> "${temp2}"
+    ffmpeg -f concat -safe 0 -i "${temp2}" -c copy "$1"
+    rm "${temp}" "${temp2}"
 }
 
 function stabilize(){
